@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DomainLayerr.Interfaces.Services
+namespace DomainLayerr.Enums
 {
-    public interface IAdminSettings
+    public enum ShiftType
     {
-        //List<AdminConfig> AdminConfigs { get; }
+        Morning,
+        Afternoon
     }
 }

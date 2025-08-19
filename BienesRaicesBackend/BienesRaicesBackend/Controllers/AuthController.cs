@@ -15,63 +15,22 @@ namespace WebApi.Controllers
         {
             _authService = authService;
         }
-
-        /// <summary>
-        /// Registro de usuario o administrador.
-        /// </summary>
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
-            try
-            {
-                var response = await _authService.RegisterAsync(registerDto);
-                return Ok(response);
-            }
-            catch (AuthException ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
+            return Ok(await _authService.RegisterAsync(registerDto));
         }
 
-        /// <summary>
-        /// Inicio de sesión.
-        /// </summary>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            try
-            {
-                var response = await _authService.LoginAsync(loginDto);
-                return Ok(response);
-            }
-            catch (AuthException ex)
-            {
-                return Unauthorized(new { message = ex.Message });
-            }
+            return Ok(await _authService.LoginAsync(loginDto));
         }
 
-        /// <summary>
-        /// Renovar el token usando refresh token.
-        /// </summary>
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshRequestDto request)
         {
-            try
-            {
-                var response = await _authService.RefreshTokenAsync(request.Token, request.RefreshToken);
-                return Ok(response);
-            }
-            catch (AuthException ex)
-            {
-                return Unauthorized(new { message = ex.Message });
-            }
+            return Ok(await _authService.RefreshTokenAsync(request.Token, request.RefreshToken));
         }
-    }
-
-    // DTO auxiliar para refresh token
-    public class RefreshRequestDto
-    {
-        public string Token { get; set; } = string.Empty;
-        public string RefreshToken { get; set; } = string.Empty;
     }
 }

@@ -17,5 +17,6 @@ namespace DomainLayerr.Entities
 
         public RoleType Role { get; set; }
         public List<RefreshToken> RefreshTokens { get; set; } = [];
+        public List<Booking> Bookings { get; set; } = new();
     }
 }

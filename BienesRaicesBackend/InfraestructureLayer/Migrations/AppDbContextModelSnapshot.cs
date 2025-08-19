@@ -22,6 +22,57 @@ namespace InfraestructureLayer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("DomainLayerr.Entities.Booking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("BookingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TimeSlotId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TimeSlotId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("DomainLayerr.Entities.Configuration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AppointmentDurationMinutes")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Configurations");
+                });
+
             modelBuilder.Entity("DomainLayerr.Entities.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
@@ -47,7 +98,78 @@ namespace InfraestructureLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("refreshTokens");
+                    b.ToTable("RefreshTokens");
+                });
+
+            modelBuilder.Entity("DomainLayerr.Entities.Shift", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ConfigurationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
+
+                    b.Property<int>("StationCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConfigurationId");
+
+                    b.ToTable("Shifts");
+                });
+
+            modelBuilder.Entity("DomainLayerr.Entities.TimeSlot", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ConfigurationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CurrentBookings")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<int>("MaxCapacity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShiftId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SlotDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConfigurationId");
+
+                    b.HasIndex("ShiftId");
+
+                    b.ToTable("TimeSlots");
                 });
 
             modelBuilder.Entity("DomainLayerr.Entities.User", b =>
@@ -85,6 +207,25 @@ namespace InfraestructureLayer.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("DomainLayerr.Entities.Booking", b =>
+                {
+                    b.HasOne("DomainLayerr.Entities.TimeSlot", "TimeSlot")
+                        .WithMany("Bookings")
+                        .HasForeignKey("TimeSlotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DomainLayerr.Entities.User", "User")
+                        .WithMany("Bookings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TimeSlot");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DomainLayerr.Entities.RefreshToken", b =>
                 {
                     b.HasOne("DomainLayerr.Entities.User", "User")
@@ -96,8 +237,57 @@ namespace InfraestructureLayer.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("DomainLayerr.Entities.Shift", b =>
+                {
+                    b.HasOne("DomainLayerr.Entities.Configuration", "Configuration")
+                        .WithMany("Shifts")
+                        .HasForeignKey("ConfigurationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Configuration");
+                });
+
+            modelBuilder.Entity("DomainLayerr.Entities.TimeSlot", b =>
+                {
+                    b.HasOne("DomainLayerr.Entities.Configuration", "Configuration")
+                        .WithMany("TimeSlots")
+                        .HasForeignKey("ConfigurationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DomainLayerr.Entities.Shift", "Shift")
+                        .WithMany("TimeSlots")
+                        .HasForeignKey("ShiftId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Configuration");
+
+                    b.Navigation("Shift");
+                });
+
+            modelBuilder.Entity("DomainLayerr.Entities.Configuration", b =>
+                {
+                    b.Navigation("Shifts");
+
+                    b.Navigation("TimeSlots");
+                });
+
+            modelBuilder.Entity("DomainLayerr.Entities.Shift", b =>
+                {
+                    b.Navigation("TimeSlots");
+                });
+
+            modelBuilder.Entity("DomainLayerr.Entities.TimeSlot", b =>
+                {
+                    b.Navigation("Bookings");
+                });
+
             modelBuilder.Entity("DomainLayerr.Entities.User", b =>
                 {
+                    b.Navigation("Bookings");
+
                     b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618

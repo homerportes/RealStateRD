@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DomainLayerr.Interfaces
+namespace DomainLayerr.Enums
 {
-    internal class IAdminSettings
+    public enum BookingStatus
     {
-        List<string> AdminEmails { get; }
+        Pending,
+        Confirmed,
+        Cancelled,
+        Completed
     }
 }
