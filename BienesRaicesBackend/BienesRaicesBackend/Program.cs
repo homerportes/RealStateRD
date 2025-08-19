@@ -128,10 +128,7 @@ namespace BienesRaicesBackend
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI(opciones =>
-                {
-                    opciones.EnablePersistAuthorization();
-                });
+                app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();

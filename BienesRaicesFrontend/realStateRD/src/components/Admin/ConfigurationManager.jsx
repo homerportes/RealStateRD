@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { adminService } from './adminService';
 import { toast } from 'react-toastify';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { es } from 'date-fns/locale';
+import { format as formatDate } from 'date-fns';
 
 const ConfigurationManager = () => {
   const [configurations, setConfigurations] = useState([]);
@@ -13,6 +17,15 @@ const ConfigurationManager = () => {
     appointmentDurationMinutes: 30,
     shifts: []
   });
+
+  // Helpers to handle safe local date parsing/formatting (avoid timezone shifts)
+  const toYMD = (date) => (date ? formatDate(date, 'yyyy-MM-dd') : '');
+  const parseYMD = (s) => {
+    if (!s) return null;
+    const [y, m, d] = s.split('-').map((n) => parseInt(n, 10));
+    if (!y || !m || !d) return null;
+    return new Date(y, m - 1, d);
+  };
 
   useEffect(() => {
     loadConfigurations();
@@ -34,8 +47,28 @@ const ConfigurationManager = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
 
+    // Basic validations before calling API
+    if (!formData.startDate || !formData.endDate) {
+      toast.error('Debes seleccionar las fechas de inicio y fin');
+      return;
+    }
+    const sd = new Date(formData.startDate);
+    const ed = new Date(formData.endDate);
+    if (ed < sd) {
+      toast.error('La Fecha de Fin no puede ser menor que la Fecha de Inicio');
+      return;
+    }
+    if (!Array.isArray(formData.shifts) || formData.shifts.length === 0) {
+      toast.error('Debes agregar al menos un turno');
+      return;
+    }
+    if (formData.appointmentDurationMinutes < 5 || formData.appointmentDurationMinutes > 120) {
+      toast.error('La duración debe estar entre 5 y 120 minutos');
+      return;
+    }
+
+    setIsLoading(true);
     try {
       const result = editingConfig
         ? await adminService.updateConfiguration(editingConfig.id, formData)
@@ -174,24 +207,46 @@ const ConfigurationManager = () => {
                     <label className="block text-sm font-medium text-slate-300 mb-2">
                       Fecha de Inicio
                     </label>
-                    <input
-                      type="date"
-                      value={formData.startDate}
-                      onChange={(e) => setFormData(prev => ({ ...prev, startDate: e.target.value }))}
+                    <DatePicker
+                      selected={parseYMD(formData.startDate)}
+                      onChange={(date) => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          startDate: toYMD(date),
+                          // If endDate is before new startDate, clear or adjust it
+                          endDate: prev.endDate && date && parseYMD(prev.endDate) < date ? toYMD(date) : prev.endDate,
+                        }));
+                      }}
+                      dateFormat="dd/MM/yyyy"
+                      placeholderText="Selecciona fecha de inicio"
                       className="w-full px-3 py-2 border border-slate-900 bg-slate-950 text-slate-100 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-slate-600"
+                      calendarClassName="!bg-slate-900 !text-slate-100"
+                      locale={es}
+                      minDate={new Date()}
                       required
+                      showPopperArrow={false}
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">
                       Fecha de Fin
                     </label>
-                    <input
-                      type="date"
-                      value={formData.endDate}
-                      onChange={(e) => setFormData(prev => ({ ...prev, endDate: e.target.value }))}
+                    <DatePicker
+                      selected={parseYMD(formData.endDate)}
+                      onChange={(date) => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          endDate: toYMD(date),
+                        }));
+                      }}
+                      dateFormat="dd/MM/yyyy"
+                      placeholderText="Selecciona fecha de fin"
                       className="w-full px-3 py-2 border border-slate-900 bg-slate-950 text-slate-100 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-slate-600"
+                      calendarClassName="!bg-slate-900 !text-slate-100"
+                      locale={es}
+                      minDate={parseYMD(formData.startDate) || new Date()}
                       required
+                      showPopperArrow={false}
                     />
                   </div>
                   <div>

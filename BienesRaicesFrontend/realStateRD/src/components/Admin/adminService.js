@@ -40,6 +40,27 @@ adminApi.interceptors.response.use(
   }
 );
 
+const toApiConfiguration = (config) => {
+  if (!config) return config;
+  const toHMS = (t) => (typeof t === 'string' && t.length === 5 ? `${t}:00` : t);
+  const toISODateStart = (d) => (d ? `${d}T00:00:00` : d);
+  const toISODateEnd = (d) => (d ? `${d}T23:59:59` : d);
+  return {
+    StartDate: toISODateStart(config.startDate),
+    EndDate: toISODateEnd(config.endDate),
+    AppointmentDurationMinutes: Number(config.appointmentDurationMinutes),
+    Shifts: Array.isArray(config.shifts)
+      ? config.shifts.map((s) => ({
+        DayOfWeek: Number(s.dayOfWeek),
+        Type: Number(s.type),
+        StartTime: toHMS(s.startTime), // 'HH:mm:ss'
+        EndTime: toHMS(s.endTime),     // 'HH:mm:ss'
+        StationCount: Number(s.stationCount),
+      }))
+      : [],
+  };
+};
+
 export const adminService = {
   // Configuration management
   async getConfigurations() {
@@ -55,24 +76,32 @@ export const adminService = {
 
   async createConfiguration(configData) {
     try {
-      const response = await adminApi.post('/configurationsReserve', configData);
+      const payload = toApiConfiguration(configData);
+      console.log('🛰️ POST /configurationsReserve payload:', payload);
+      const response = await adminApi.post('/configurationsReserve', payload);
       toast.success('Configuración creada exitosamente');
       return { success: true, data: response.data };
     } catch (error) {
       console.error('Error creating configuration:', error);
-      toast.error('Error al crear configuración');
+      console.error('Server response:', error.response?.data);
+      const msg = error.response?.data?.message || error.response?.data?.title || 'Error al crear configuración';
+      toast.error(msg);
       return { success: false, error: error.message };
     }
   },
 
   async updateConfiguration(id, configData) {
     try {
-      await adminApi.put(`/configurationsReserve/${id}`, configData);
+      const payload = toApiConfiguration(configData);
+      console.log('🛰️ PUT /configurationsReserve payload:', payload);
+      await adminApi.put(`/configurationsReserve/${id}`, payload);
       toast.success('Configuración actualizada exitosamente');
       return { success: true };
     } catch (error) {
       console.error('Error updating configuration:', error);
-      toast.error('Error al actualizar configuración');
+      console.error('Server response:', error.response?.data);
+      const msg = error.response?.data?.message || error.response?.data?.title || 'Error al actualizar configuración';
+      toast.error(msg);
       return { success: false, error: error.message };
     }
   },
