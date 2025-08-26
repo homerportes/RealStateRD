@@ -18,7 +18,7 @@ const Header = () => {
         className="container text-center mx-auto py-4 px-6 md:px-20 lg:px-32 text-white"
       >
         <h2 className="text-5xl sm:text-6xl md:text-[82px] inline-block max-w-3xl font-semibold pt-20">
-          Explore home that fit your dreams
+        Explora hogares que se ajustan a tus sueños
         </h2>
 
         <Motion.div
@@ -31,7 +31,7 @@ const Header = () => {
             href="#Projects"
             className="border border-white px-8 py-3 rounded inline-block"
           >
-            Projects
+            Proyectos
           </a>
           <a
             href="#Contact"

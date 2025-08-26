@@ -22,26 +22,26 @@ const Navbar = () => {
         <img src={assets.logo} alt="" />
         <ul className="hidden md:flex gap-7 text-white">
           <a href="#Home" className="cursor-pointer hover:text-gray-400">
-            Home
+            Inicio
           </a>
           <a href="#About" className="cursor-pointer hover:text-gray-400">
-            About
+            Sobre nosotros
           </a>
           <a href="#Projects" className="cursor-pointer hover:text-gray-400">
-            Projects
+            Proyectos
           </a>
           <a
             href="#Testimonials"
             className="cursor-pointer hover:text-gray-400"
           >
-            Testimonials
+            Testimonios
           </a>
         </ul>
         <Link
           to="/signup"
           className="hidden md:block bg-white px-8 py-2 rounded-full hover:bg-gray-100 transition-colors duration-300"
         >
-          Sign up
+          inicia Sesion
         </Link>
         <img
           onClick={() => setShowMobilemenu(true)}
@@ -68,35 +68,35 @@ const Navbar = () => {
             href="#Header"
             className="px-4 py-2 rounded-full inline-block"
           >
-            Home
+            Inicio
           </a>
           <a
             onClick={() => setShowMobilemenu(false)}
             href="#About"
             className="px-4 py-2 rounded-full inline-block"
           >
-            About
+            Sobre nosotros
           </a>
           <a
             onClick={() => setShowMobilemenu(false)}
             href="#Projects"
             className="px-4 py-2 rounded-full inline-block"
           >
-            Projects
+            Proyectos
           </a>
           <a
             onClick={() => setShowMobilemenu(false)}
             href="#Testimonials"
             className="px-4 py-2 rounded-full inline-block"
           >
-            Testimonials
+            Testimoniales
           </a>
           <Link
             onClick={() => setShowMobilemenu(false)}
             to="/signup"
             className="px-4 py-2 rounded-full inline-block bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300"
           >
-            Sign Up
+            Iniciar Sesión
           </Link>
         </ul>
       </div>

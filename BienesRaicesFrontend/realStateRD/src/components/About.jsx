@@ -15,9 +15,9 @@ const About = () => {
         viewport={{ once: true }}
         className="text-2xl sm:text-4xl font-bold mb-2"
       >
-        About{" "}
+        Sobre{" "}
         <span className="underline underline-offset-4 decoration-1 font-light">
-          Our Brand
+          Nuestra Marca
         </span>
       </Motion.h1>
 
@@ -28,7 +28,7 @@ const About = () => {
         viewport={{ once: true }}
         className="text-gray-500 max-w-md text-center mb-8"
       >
-        Passionate About Properties, Dedicated to Your Vision
+       Pasión por las propiedades, compromiso con tu visión
       </Motion.p>
 
       <div className="flex flex-col md:flex-row item-center md:items-start md:gap-20">
@@ -51,10 +51,10 @@ const About = () => {
         >
           <div className="grid grid-cols-2 gap-6 md:gap-10 w-full 2x1:pr-28">
             {[
-              { value: "10+", label: "Years of Excellence" },
-              { value: "12+", label: "Projects Completed" },
-              { value: "20+", label: "Mn. Sq. Ft. Delivered" },
-              { value: "25+", label: "Ongoing Projects" }
+              { value: "10+", label: "Años de Excelencia" },
+              { value: "12+", label: "Proyectos Completados" },
+              { value: "20+", label: "Mn. Sq. Ft. Entregados" },
+              { value: "25+", label: "Proyectos en curso" }
             ].map((item, i) => (
               <Motion.div
                 key={i}
@@ -91,7 +91,7 @@ const About = () => {
             transition={{ delay: 1, duration: 0.5 }}
             viewport={{ once: true }}
           >
-            Learn more
+            Más sobre nosotros
           </Motion.button>
         </Motion.div>
       </div>

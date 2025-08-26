@@ -21,11 +21,11 @@ const Contact = () => {
 
     if (data.success) {
       setResult("");
-      toast.success("Message sent successfully!");
+      toast.success("Mensaje enviado exitosamente!");
       event.target.reset();
     } else {
       console.log("Error", data);
-      toast.error("Failed to send message. Please try again.");
+      toast.error("Error al enviar el mensaje. Por favor, intenta de nuevo.");
       setResult("");
     }
   };
@@ -117,7 +117,7 @@ const Contact = () => {
         className="text-2xl sm:text-4xl font-bold mb-2 text-center"
         variants={titleVariants}
       >
-        Contact{" "}
+            Contacta{" "}
         <Motion.span 
           className="underline underline-offset-4 decoration-1 decoration-gray-800 font-light"
           initial={{ scaleX: 0 }}
@@ -125,7 +125,7 @@ const Contact = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           style={{ transformOrigin: "left" }}
         >
-          With us
+          Con nosotros
         </Motion.span>
       </Motion.h1>
       
@@ -136,8 +136,8 @@ const Contact = () => {
         transition={{ duration: 0.6, delay: 0.3 }}
         viewport={{ once: true }}
       >
-        Ready to make your real estate dreams a reality? Get in touch with us
-        today!
+        Listo para hacer tus sueños de bienes raíces realidad? Contáctanos
+        hoy!
       </Motion.p>
 
       {/* Formulario animado */}
@@ -145,7 +145,7 @@ const Contact = () => {
         onSubmit={onSubmit} 
         className="max-w-2xl mx-auto text-gray-600 pt-8"
         variants={formVariants}
-      >
+      >   
         <Motion.div 
           className="flex flex-wrap"
           variants={inputVariants}
@@ -160,13 +160,13 @@ const Contact = () => {
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.1 }}
             >
-              Your Name
+              Nombre
             </Motion.label>
             <Motion.input
               className="w-full border border-gray-300 rounded py-3 px-4 mt-2"
               type="text"
               name="Name"
-              placeholder="Your Name"
+              placeholder="Tu Nombre"
               required
               whileFocus="focus"
               variants={inputVariants}
@@ -187,13 +187,13 @@ const Contact = () => {
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
-              Your Email
+            Tu Email
             </Motion.label>
             <Motion.input
               className="w-full border border-gray-300 rounded py-3 px-4 mt-2"
               type="email"
               name="Email"
-              placeholder="Your Email"
+              placeholder="Tu Email"
               required
               whileFocus="focus"
               variants={inputVariants}
@@ -215,12 +215,12 @@ const Contact = () => {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.3 }}
           >
-            Message
+            Mensaje
           </Motion.label>
           <Motion.textarea
             className="w-full border border-gray-300 rounded py-3 px-4 mt-2 h-48 resize-none"
             name="Message"
-            placeholder="Message"
+            placeholder="Mensaje"
             required
             whileFocus="focus"
             variants={inputVariants}
@@ -246,7 +246,7 @@ const Contact = () => {
               transition: { repeat: Infinity, duration: 1 }
             } : {}}
           >
-            {result ? result : "Send Message"}
+            {result ? result : "Enviar Mensaje"}
           </Motion.span>
         </Motion.button>
       </Motion.form>

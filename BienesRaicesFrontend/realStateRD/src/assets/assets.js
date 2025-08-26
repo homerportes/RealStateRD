@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+import logo from "./logo.png";
 import logo_dark from "./logo_dark.svg";
 import cross_icon from "./cross_icon.svg";
 import menu_icon from "./menu_icon.svg";
@@ -37,66 +37,66 @@ export default assets;
 
 export const projectsData = [
   {
-    title: "Skyline Haven",
-    price: "$2,50,000",
-    location: "California",
+    title: "Casa",
+    price: "$15,000",
+    location: "Distrito Nacional",
     image: project_img_1,
   },
   {
-    title: "Vista Verde",
-    price: "$2,50,000",
-    location: "San Francisco",
+    title: "Casa",
+    price: "8,000",
+    location: "Bajos de Haina",
     image: project_img_2,
   },
   {
-    title: "Serenity Suites",
-    price: "$2,50,000",
-    location: "Chicago",
+    title: "Casa",
+    price: "$4,000",
+    location: "MonteCristi",
     image: project_img_3,
   },
   {
-    title: "Central Square",
-    price: "$2,50,000",
-    location: "Los Angeles",
+    title: "Apartamento",
+    price: "$10,000",
+    location: "Villa Mella",
     image: project_img_4,
   },
   {
-    title: "Vista Verde",
+    title: "Casa",
     price: "$2,50,000",
-    location: "San Francisco",
+    location: "San Francisco de Macoris",
     image: project_img_5,
   },
   {
-    title: "Serenity Suites",
+    title: "Casa",
     price: "$2,50,000",
-    location: "Chicago",
+    location: "Punta Cana",
     image: project_img_6,
   },
 ];
 
 export const testimonialsData = [
   {
-    name: "Donald Jackman",
-    title: "Marketing Manager",
+    name: "Carlos Gómez",
+    title: "Empresario",
     image: profile_img_1,
-    alt: "Portrait of Donald Jackman",
+    alt: "Retrato de Carlos Gómez",
     rating: 5,
-    text: "From the very first meeting, they understood my vision and helped me find the perfect property. Their attention to detail and commitment to client satisfaction is unmatched.",
+    text: "Desde la primera reunión entendieron lo que buscaba y me ayudaron a encontrar la propiedad ideal. Su dedicación y atención al detalle superaron mis expectativas.",
   },
   {
-    name: "Richard Nelson",
-    title: "UI/UX Designer",
+    name: "Marío Rodríguez",
+    title: "Arquitecto",
     image: profile_img_2,
-    alt: "Portrait of Richard Nelson",
+    alt: "Retrato de María Rodríguez",
     rating: 4,
-    text: "From the very first meeting, they understood my vision and helped me find the perfect property. Their attention to detail and commitment to client satisfaction is unmatched.",
+    text: "Me guiaron en todo el proceso con profesionalidad y transparencia. Gracias a ellos encontré un espacio perfecto para mi proyecto.",
   },
   {
-    name: "James Washington",
-    title: "Co-Founder",
+    name: "José Martínez",
+    title: "Ingeniero Civil",
     image: profile_img_3,
-    alt: "Portrait of James Washington",
+    alt: "Retrato de José Martínez",
     rating: 5,
-    text: "From the very first meeting, they understood my vision and helped me find the perfect property. Their attention to detail and commitment to client satisfaction is unmatched.",
-  },
+    text: "Su compromiso con el cliente y la rapidez para responder a mis necesidades hicieron que comprar mi propiedad fuera una experiencia excelente.",
+  },  
 ];

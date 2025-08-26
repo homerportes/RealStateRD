@@ -86,7 +86,7 @@ const Testimonials = () => {
         className="text-2xl sm:text-4xl font-bold mb-2 text-center"
         variants={titleVariants}
       >
-        Customer
+        Testimonios
         <Motion.span 
           className="underline underline-offset-4 decoration-1 decoration-gray-800 font-light"
           initial={{ scaleX: 0 }}
@@ -94,7 +94,7 @@ const Testimonials = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           style={{ transformOrigin: "left" }}
         >
-          Testimonials
+          de Clientes
         </Motion.span>
       </Motion.h1>
       
@@ -105,7 +105,7 @@ const Testimonials = () => {
         transition={{ duration: 0.6, delay: 0.3 }}
         viewport={{ once: true }}
       >
-        Real Stories from those Who Found Home with Us
+        Historias reales de quienes encontraron hogar con nosotros
       </Motion.p>
 
       {/* Contenedor de testimonios */}
