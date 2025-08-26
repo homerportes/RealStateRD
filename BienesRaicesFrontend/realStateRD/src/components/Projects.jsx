@@ -104,7 +104,7 @@ const Projects = () => {
         className="text-2xl sm:text-4xl font-bold mb-2 text-center"
         variants={titleVariants}
       >
-        Projects{" "}
+        Proyectos{" "}
         <Motion.span 
           className="underline underline-offset-4 decoration-1 under font-light"
           initial={{ scaleX: 0 }}
@@ -112,7 +112,7 @@ const Projects = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           style={{ transformOrigin: "left" }}
         >
-          Completed
+          Completados
         </Motion.span>
       </Motion.h1>
       
@@ -123,7 +123,7 @@ const Projects = () => {
         transition={{ duration: 0.6, delay: 0.3 }}
         viewport={{ once: true }}
       >
-        Crafting Spaces, building Legacies-Explore Our Portfolio
+        Creando espacios, construyendo legados – Explora nuestro portafolio
       </Motion.p>
 
       {/* Botones del slider animados */}
